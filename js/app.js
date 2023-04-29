@@ -6,6 +6,7 @@ function cookieStore(storeName, minCust, maxCust, avgSale) {
   this.avgSale = avgSale;
   this.hours = hours;
   this.totalsPerHour = getTotalsPerHour();
+  this.totalPerDay = getTotalPerDay(this.totalsPerHour);
 
   // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
   function getRandom(min, max) {
@@ -21,6 +22,13 @@ function cookieStore(storeName, minCust, maxCust, avgSale) {
       salesPerHour.push(Math.floor(hourSale));
     }
     return salesPerHour;
+  }
+  function getTotalPerDay(totalsPerHour) {
+    let total = 0;
+    for (let number of totalsPerHour) {
+      total += number;
+    }
+    return total;
   }
 }
 
@@ -59,11 +67,16 @@ function render(stores) {
 
     let ulElem = document.createElement("ul");
 
-    for (let item of stores[i].totalsPerHour) {
+    for (let j = 0; j < stores[i].totalsPerHour.length; j++) {
       let liElem = document.createElement("li");
-      liElem.textContent = item + " cookies";
+      liElem.textContent =
+        hours[j] + " " + stores[i].totalsPerHour[j] + " cookies";
+
       ulElem.appendChild(liElem);
     }
+    let liTotalElem = document.createElement("li");
+    liTotalElem.textContent = "Total Sales: " + stores[i].totalPerDay;
+    ulElem.appendChild(liTotalElem);
     salesSectionElem.appendChild(headingElem);
     salesSectionElem.appendChild(ulElem);
   }
