@@ -1,4 +1,21 @@
 "use strict";
+const storeNames = ["Seattle", "Tokyo", "Dubai", "Paris", "Lima"];
+const hours = [
+  "6am",
+  "7am",
+  "8am",
+  "9am",
+  "10am",
+  "11am",
+  "12pm",
+  "1pm",
+  "2pm",
+  "3pm",
+  "4pm",
+  "5pm",
+  "6pm",
+  "7pm",
+];
 function cookieStore(storeName, minCust, maxCust, avgSale) {
   this.storeName = storeName;
   this.minCust = minCust;
@@ -31,24 +48,24 @@ function cookieStore(storeName, minCust, maxCust, avgSale) {
     return total;
   }
 }
+cookieStore.prototype.render = function render() {
+  const tableRowElm = document.createElement("tr");
+  const tdNameElm = document.createElement("td");
+  tdNameElm.textContent = this.storeName;
+  tableRowElm.appendChild(tdNameElm);
 
-const storeNames = ["Seattle", "Tokyo", "Dubai", "Paris", "Lima"];
-const hours = [
-  "6am",
-  "7am",
-  "8am",
-  "9am",
-  "10am",
-  "11am",
-  "12pm",
-  "1pm",
-  "2pm",
-  "3pm",
-  "4pm",
-  "5pm",
-  "6pm",
-  "7pm",
-];
+  for (let i of this.totalsPerHour) {
+    const tdHourlyElem = document.createElement("td");
+    tdHourlyElem.textContent = i;
+    tableRowElm.appendChild(tdHourlyElem);
+  }
+
+  const tdSubtotalElm = document.createElement("td");
+  tdSubtotalElm.textContent = this.totalPerDay;
+  tableRowElm.appendChild(tdSubtotalElm);
+
+  tableElm.appendChild(tableRowElm);
+};
 
 const stores = [
   new cookieStore(storeNames[0], 23, 65, 6.3),
@@ -58,28 +75,23 @@ const stores = [
   new cookieStore(storeNames[4], 2, 16, 4.6),
 ];
 
-function render(stores) {
-  const salesSectionElem = document.getElementById("sales-data");
-  for (let i = 0; i < stores.length; i++) {
-    console.log(stores[i]);
-    let headingElem = document.createElement("h3");
-    headingElem.textContent = stores[i].storeName;
+const tableElm = document.getElementById("sales-table");
+const tableHeadingElm = document.getElementById("heading-row");
 
-    let ulElem = document.createElement("ul");
+let locationThElm = document.createElement("th");
+locationThElm.textContent = "";
+tableHeadingElm.appendChild(locationThElm);
 
-    for (let j = 0; j < stores[i].totalsPerHour.length; j++) {
-      let liElem = document.createElement("li");
-      liElem.textContent =
-        hours[j] + " " + stores[i].totalsPerHour[j] + " cookies";
-
-      ulElem.appendChild(liElem);
-    }
-    let liTotalElem = document.createElement("li");
-    liTotalElem.textContent = "Total Sales: " + stores[i].totalPerDay;
-    ulElem.appendChild(liTotalElem);
-    salesSectionElem.appendChild(headingElem);
-    salesSectionElem.appendChild(ulElem);
-  }
+for (let i of hours) {
+  let hourlyThElm = document.createElement("th");
+  hourlyThElm.textContent = i;
+  tableHeadingElm.appendChild(hourlyThElm);
 }
 
-render(stores);
+let subtotalThElm = document.createElement("th");
+subtotalThElm.textContent = "Daily Location Total";
+tableHeadingElm.appendChild(subtotalThElm);
+
+for (let i of stores) {
+  i.render();
+}
