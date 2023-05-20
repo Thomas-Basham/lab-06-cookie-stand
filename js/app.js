@@ -95,3 +95,33 @@ tableHeadingElm.appendChild(subtotalThElm);
 for (let i of stores) {
   i.render();
 }
+
+let totalRowElm = document.createElement("tr");
+subtotalThElm.textContent = "Daily Location Total";
+let totalsElm = document.createElement("td");
+totalsElm.textContent = "Totals";
+tableElm.appendChild(totalRowElm);
+totalRowElm.appendChild(totalsElm);
+
+function renderTotals() {
+  for (let i in hours) {
+    let hourlyTotal = 0;
+    for (let j of stores) {
+      hourlyTotal += j.totalsPerHour[i];
+    }
+    let hourlyTotalElm = document.createElement("td");
+    hourlyTotalElm.textContent = hourlyTotal;
+    totalRowElm.appendChild(hourlyTotalElm);
+  }
+
+  let grandTotal = 0;
+  for (let i of stores){
+    grandTotal += i.totalPerDay
+
+  }
+  let grandTotalElm = document.createElement("td");
+  grandTotalElm.textContent = grandTotal;
+  totalRowElm.appendChild(grandTotalElm);
+}
+
+renderTotals();
