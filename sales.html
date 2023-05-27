@@ -15,11 +15,36 @@
       </nav>
     </header>
     <main>
+      <section>
+        <form id="add-store-form">
+          <fieldset>
+            <label for="store-name">Store Location</label>
+            <input name="store-name" type="text" />
+          </fieldset>
+          <fieldset>
+            <label for="min-cust">Minimum customers per hour</label>
+            <input name="min-cust" type="number" />
+          </fieldset>
+          <fieldset>
+            <label for="max-cust">Maximum customers per hour</label>
+            <input name="max-cust" type="number" />
+          </fieldset>
+          <fieldset>
+            <label for="avg-sale">Average sold per customer</label>
+            <input name="avg-sale" type="float" />
+          </fieldset>
+          <button type="submit">Submit</button>
+        </form>
+      </section>
       <section id="sales-data">
         <table id="sales-table">
           <thead>
-            <tr id="heading-row"></tr>
+            <tr id="heading-row">
+              <td id="empty-td"></td>
+            </tr>
           </thead>
+          <tbody id="table-body"></tbody>
+          <tfoot id="table-foot"></tfoot>
         </table>
       </section>
     </main>
