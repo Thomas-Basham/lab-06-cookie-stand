@@ -75,12 +75,8 @@ const stores = [
   new cookieStore(storeNames[4], 2, 16, 4.6),
 ];
 
-const tableElm = document.getElementById("sales-table");
+const tableElm = document.getElementById("table-body");
 const tableHeadingElm = document.getElementById("heading-row");
-
-let locationThElm = document.createElement("th");
-locationThElm.textContent = "";
-tableHeadingElm.appendChild(locationThElm);
 
 for (let i of hours) {
   let hourlyThElm = document.createElement("th");
@@ -92,18 +88,39 @@ let subtotalThElm = document.createElement("th");
 subtotalThElm.textContent = "Daily Location Total";
 tableHeadingElm.appendChild(subtotalThElm);
 
+// event handling
+let addStoreForm = document.getElementById("add-store-form");
+addStoreForm.addEventListener("submit", onSubmit);
+function onSubmit(event) {
+  event.preventDefault();
+  let location = event.target["store-name"].value;
+  let minCust = event.target["min-cust"].value;
+  let maxCust = event.target["max-cust"].value;
+  let avgSale = event.target["avg-sale"].value;
+
+  let newStore = new cookieStore(location, minCust, maxCust, avgSale);
+  newStore.render();
+  stores.push(newStore);
+
+  console.log(stores);
+  tableFootElm.innerHTML = "";
+  renderTotals();
+  event.target.reset();
+}
+
 for (let i of stores) {
   i.render();
 }
 
-let totalRowElm = document.createElement("tr");
-subtotalThElm.textContent = "Daily Location Total";
-let totalsElm = document.createElement("td");
-totalsElm.textContent = "Totals";
-tableElm.appendChild(totalRowElm);
-totalRowElm.appendChild(totalsElm);
-
+let tableFootElm = document.getElementById("table-foot");
 function renderTotals() {
+  let totalRowElm = document.createElement("tr");
+  subtotalThElm.textContent = "Daily Location Total";
+  let totalsElm = document.createElement("td");
+  totalsElm.textContent = "Totals";
+  tableFootElm.appendChild(totalRowElm);
+  totalRowElm.appendChild(totalsElm);
+
   for (let i in hours) {
     let hourlyTotal = 0;
     for (let j of stores) {
@@ -115,9 +132,8 @@ function renderTotals() {
   }
 
   let grandTotal = 0;
-  for (let i of stores){
-    grandTotal += i.totalPerDay
-
+  for (let i of stores) {
+    grandTotal += i.totalPerDay;
   }
   let grandTotalElm = document.createElement("td");
   grandTotalElm.textContent = grandTotal;
