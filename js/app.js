@@ -16,7 +16,7 @@ const hours = [
   "6pm",
   "7pm",
 ];
-function cookieStore(storeName, minCust, maxCust, avgSale) {
+function CookieStore(storeName, minCust, maxCust, avgSale) {
   this.storeName = storeName;
   this.minCust = minCust;
   this.maxCust = maxCust;
@@ -24,13 +24,6 @@ function cookieStore(storeName, minCust, maxCust, avgSale) {
   this.hours = hours;
   this.totalsPerHour = getTotalsPerHour();
   this.totalPerDay = getTotalPerDay(this.totalsPerHour);
-
-  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-  function getRandom(min, max) {
-    min = Math.ceil(min);
-    max = Math.floor(max);
-    return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-  }
 
   function getTotalsPerHour() {
     let salesPerHour = [];
@@ -48,7 +41,15 @@ function cookieStore(storeName, minCust, maxCust, avgSale) {
     return total;
   }
 }
-cookieStore.prototype.render = function render() {
+
+// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+function getRandom(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
+}
+
+CookieStore.prototype.render = function render() {
   const tableRowElm = document.createElement("tr");
   const tdNameElm = document.createElement("td");
   tdNameElm.textContent = this.storeName;
@@ -68,11 +69,11 @@ cookieStore.prototype.render = function render() {
 };
 
 const stores = [
-  new cookieStore(storeNames[0], 23, 65, 6.3),
-  new cookieStore(storeNames[1], 3, 24, 1.2),
-  new cookieStore(storeNames[2], 11, 38, 3.7),
-  new cookieStore(storeNames[3], 20, 38, 2.3),
-  new cookieStore(storeNames[4], 2, 16, 4.6),
+  new CookieStore(storeNames[0], 23, 65, 6.3),
+  new CookieStore(storeNames[1], 3, 24, 1.2),
+  new CookieStore(storeNames[2], 11, 38, 3.7),
+  new CookieStore(storeNames[3], 20, 38, 2.3),
+  new CookieStore(storeNames[4], 2, 16, 4.6),
 ];
 
 const tableElm = document.getElementById("table-body");
@@ -98,11 +99,10 @@ function onSubmit(event) {
   let maxCust = event.target["max-cust"].value;
   let avgSale = event.target["avg-sale"].value;
 
-  let newStore = new cookieStore(location, minCust, maxCust, avgSale);
+  let newStore = new CookieStore(location, minCust, maxCust, avgSale);
   newStore.render();
   stores.push(newStore);
 
-  console.log(stores);
   tableFootElm.innerHTML = "";
   renderTotals();
   event.target.reset();
