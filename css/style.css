@@ -1,4 +1,5 @@
-  @import url('https://fonts.googleapis.com/css2?family=Roboto&family=Shrikhand&family=Unbounded&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Shrikhand&family=Unbounded&display=swap');
+
 html,
 body {
   /* #fe4a49, #2ab7ca, #fed766, #e6e6ea, #f4f4f8 */
@@ -16,41 +17,46 @@ body {
 
 }
 
-
-
 header {
   background-color: var(--color2b);
   padding: 2px;
 }
+
 header img {
   /* width: 20px; */
   width: 250px
 }
-header p, h1 {
+
+header p,
+h1 {
   font-family: 'Shrikhand', cursive;
-  /* font-family: 'Unbounded', cursive; */
 }
-h1, address, p{
+
+h1,
+address,
+p {
   color: #f9db7f;
 }
 
-h2, header p{
+h2,
+header p {
   color: var(--color1);
 }
 
-a{
+a {
   color: var(--color5);
 }
-a{
+
+a {
   text-decoration: none;
 }
 
-main{
+main {
   width: 70%;
   margin: 0 auto;
 }
 
-main img{
+main img {
   width: 100%;
 }
 
@@ -59,45 +65,46 @@ table {
   padding: 1.5rem;
   background-color: var(--color2b);
   border-radius: 4px;
-
 }
 
-td, th {
+td,
+th {
   padding: .5rem;
   font-size: .6rem;
 }
 
 nav {
   width: 100%;
-  padding-inline: 20px ;
+  padding-inline: 20px;
 }
-footer{
+
+footer {
   text-align: center;
 }
 
-footer img{
+footer img {
   width: 100px;
 }
 
-button{
+button {
   background-color: var(--color5b);
   padding-inline: 1rem;
   border: solid var(--color2) 1px;
   border-radius: 4px;
   color: var(--color2);
-  
+
 }
-fieldset{
-  /* border: solid var(--color2) 1px; */
+
+fieldset {
   border: none;
   border-radius: 4px;
   color: var(--color2);
 }
-button:hover{
+
+button:hover {
   cursor: pointer;
   color: var(--color5);
   background-color: var(--color2);
-
 }
 
 .img-reverse {
@@ -109,7 +116,7 @@ button:hover{
   width: 50%;
 }
 
-.display-flex{
+.display-flex {
   display: flex;
 }
 
