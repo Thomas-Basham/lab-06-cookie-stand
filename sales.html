@@ -28,19 +28,19 @@
         <form id="add-store-form">
           <fieldset>
             <label for="store-name">Store Location</label>
-            <input name="store-name" type="text" />
+            <input name="store-name" type="text" required />
           </fieldset>
           <fieldset>
             <label for="min-cust">Minimum customers per hour</label>
-            <input name="min-cust" type="number" />
+            <input name="min-cust" type="number" required/>
           </fieldset>
           <fieldset>
             <label for="max-cust">Maximum customers per hour</label>
-            <input name="max-cust" type="number" />
+            <input name="max-cust" type="number" required/>
           </fieldset>
           <fieldset>
             <label for="avg-sale">Average sold per customer</label>
-            <input name="avg-sale" type="float" />
+            <input name="avg-sale" type="float" required/>
           </fieldset>
           <fieldset>
             <button type="submit">Submit</button>
