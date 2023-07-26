@@ -1,4 +1,5 @@
 "use strict";
+"use strict";
 const storeNames = ["Seattle", "Tokyo", "Dubai", "Paris", "Lima"];
 const hours = [
   "6am",
@@ -16,39 +17,51 @@ const hours = [
   "6pm",
   "7pm",
 ];
+const stores = [
+  new CookieStore(storeNames[0], 23, 65, 6.3),
+  new CookieStore(storeNames[1], 3, 24, 1.2),
+  new CookieStore(storeNames[2], 11, 38, 3.7),
+  new CookieStore(storeNames[3], 20, 38, 2.3),
+  new CookieStore(storeNames[4], 2, 16, 4.6),
+];
+const tableElm = document.getElementById("table-body");
+const tableHeadingElm = document.getElementById("heading-row");
+let tableFootElm = document.getElementById("table-foot");
+
+// Helper functions (for constructor)
+function getTotalsPerHour(minCust, maxCust, avgSale) {
+  let salesPerHour = [];
+  for (let hour of hours) {
+    const hourSale = getRandom(minCust, maxCust) * avgSale;
+    salesPerHour.push(Math.floor(hourSale));
+  }
+  return salesPerHour;
+}
+function getTotalPerDay(totalsPerHour) {
+  let total = 0;
+  for (let number of totalsPerHour) {
+    total += number;
+  }
+  return total;
+}
+function getRandom(min, max) {
+  // https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1) + min); // The maximum is inclusive and the minimum is inclusive
+}
+
+// Constructor function
 function CookieStore(storeName, minCust, maxCust, avgSale) {
   this.storeName = storeName;
   this.minCust = minCust;
   this.maxCust = maxCust;
   this.avgSale = avgSale;
   this.hours = hours;
-  this.totalsPerHour = getTotalsPerHour();
+  this.totalsPerHour = getTotalsPerHour(minCust, maxCust, avgSale);
   this.totalPerDay = getTotalPerDay(this.totalsPerHour);
-
-  function getTotalsPerHour() {
-    let salesPerHour = [];
-    for (let hour of hours) {
-      const hourSale = getRandom(minCust, maxCust) * avgSale;
-      salesPerHour.push(Math.floor(hourSale));
-    }
-    return salesPerHour;
-  }
-  function getTotalPerDay(totalsPerHour) {
-    let total = 0;
-    for (let number of totalsPerHour) {
-      total += number;
-    }
-    return total;
-  }
 }
-
-// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Math/random
-function getRandom(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min) + min); // The maximum is exclusive and the minimum is inclusive
-}
-
+// prototype to render a table row for one cookie store
 CookieStore.prototype.render = function render() {
   const tableRowElm = document.createElement("tr");
   const tdNameElm = document.createElement("td");
@@ -68,26 +81,17 @@ CookieStore.prototype.render = function render() {
   tableElm.appendChild(tableRowElm);
 };
 
-const stores = [
-  new CookieStore(storeNames[0], 23, 65, 6.3),
-  new CookieStore(storeNames[1], 3, 24, 1.2),
-  new CookieStore(storeNames[2], 11, 38, 3.7),
-  new CookieStore(storeNames[3], 20, 38, 2.3),
-  new CookieStore(storeNames[4], 2, 16, 4.6),
-];
-
-const tableElm = document.getElementById("table-body");
-const tableHeadingElm = document.getElementById("heading-row");
-
-for (let i of hours) {
-  let hourlyThElm = document.createElement("th");
-  hourlyThElm.textContent = i;
-  tableHeadingElm.appendChild(hourlyThElm);
+// render the heading
+function renderTableHeading() {
+  for (let i of hours) {
+    let hourlyThElm = document.createElement("th");
+    hourlyThElm.textContent = i;
+    tableHeadingElm.appendChild(hourlyThElm);
+  }
+  let subtotalThElm = document.createElement("th");
+  subtotalThElm.textContent = "Daily Location Total";
+  tableHeadingElm.appendChild(subtotalThElm);
 }
-
-let subtotalThElm = document.createElement("th");
-subtotalThElm.textContent = "Daily Location Total";
-tableHeadingElm.appendChild(subtotalThElm);
 
 // event handling
 let addStoreForm = document.getElementById("add-store-form");
@@ -104,18 +108,19 @@ function onSubmit(event) {
   stores.push(newStore);
 
   tableFootElm.innerHTML = "";
-  renderTotals();
+  renderTableFoot();
   event.target.reset();
 }
 
-for (let i of stores) {
-  i.render();
+function renderTableBody() {
+  for (let i of stores) {
+    i.render();
+  }
 }
 
-let tableFootElm = document.getElementById("table-foot");
-function renderTotals() {
+function renderTableFoot() {
   let totalRowElm = document.createElement("tr");
-  subtotalThElm.textContent = "Daily Location Total";
+  // subtotalThElm.textContent = "Daily Location Total";
   let totalsElm = document.createElement("td");
   totalsElm.textContent = "Totals";
   tableFootElm.appendChild(totalRowElm);
@@ -140,4 +145,7 @@ function renderTotals() {
   totalRowElm.appendChild(grandTotalElm);
 }
 
-renderTotals();
+// initial rendering
+renderTableHeading();
+renderTableBody();
+renderTableFoot();
