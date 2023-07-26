@@ -93,25 +93,6 @@ function renderTableHeading() {
   tableHeadingElm.appendChild(subtotalThElm);
 }
 
-// event handling
-let addStoreForm = document.getElementById("add-store-form");
-addStoreForm.addEventListener("submit", onSubmit);
-function onSubmit(event) {
-  event.preventDefault();
-  let location = event.target["store-name"].value;
-  let minCust = event.target["min-cust"].value;
-  let maxCust = event.target["max-cust"].value;
-  let avgSale = event.target["avg-sale"].value;
-
-  let newStore = new CookieStore(location, minCust, maxCust, avgSale);
-  newStore.render();
-  stores.push(newStore);
-
-  tableFootElm.innerHTML = "";
-  renderTableFoot();
-  event.target.reset();
-}
-
 function renderTableBody() {
   for (let i of stores) {
     i.render();
@@ -143,6 +124,25 @@ function renderTableFoot() {
   let grandTotalElm = document.createElement("td");
   grandTotalElm.textContent = grandTotal;
   totalRowElm.appendChild(grandTotalElm);
+}
+
+// event handling
+let addStoreForm = document.getElementById("add-store-form");
+addStoreForm.addEventListener("submit", onSubmit);
+function onSubmit(event) {
+  event.preventDefault();
+  let location = event.target["store-name"].value;
+  let minCust = event.target["min-cust"].value;
+  let maxCust = event.target["max-cust"].value;
+  let avgSale = event.target["avg-sale"].value;
+
+  let newStore = new CookieStore(location, minCust, maxCust, avgSale);
+  newStore.render();
+  stores.push(newStore);
+
+  tableFootElm.innerHTML = "";
+  renderTableFoot();
+  event.target.reset();
 }
 
 // initial rendering
