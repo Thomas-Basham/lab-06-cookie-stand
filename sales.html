@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pat's Salmon Cookie Sales</title>
+    <link rel="stylesheet" href="css/style.css" />
+    <meta name="description" content="Predicting the future sales of Pat's salmon cookies">
+  </head>
+  <body>
+    <header>
+      <p>⭐️ Pat's Salmon Cookies</p>
+      <section class="display-flex space-between">
+        <img src="img/salmon.png" alt="Pat's Salmon" />
+        <nav class="display-flex space-between">
+          <a href="index.html" >Home</a>
+          <a href="sales.html" >Sales</a>
+          <a href="#" >Place order</a>
+        </nav>
+        <img class="img-reverse" src="img/salmon.png" alt="Pat's Salmon" />
+      </section>
+    </header>
+    <main>
+      <section>
+        <h1>Pat's Salmon Cookie Sales</h1>
+
+        <form id="add-store-form">
+          <fieldset>
+            <label for="store-name">Store Location</label>
+            <input name="store-name" type="text" required />
+          </fieldset>
+          <fieldset>
+            <label for="min-cust">Minimum customers per hour</label>
+            <input name="min-cust" type="number" required/>
+          </fieldset>
+          <fieldset>
+            <label for="max-cust">Maximum customers per hour</label>
+            <input name="max-cust" type="number" required/>
+          </fieldset>
+          <fieldset>
+            <label for="avg-sale">Average sold per customer</label>
+            <input name="avg-sale" type="float" required/>
+          </fieldset>
+          <fieldset>
+            <button type="submit">Submit</button>
+          </fieldset>
+        </form>
+      </section>
+      <section id="sales-data">
+        <table id="sales-table">
+          <thead>
+            <tr id="heading-row">
+              <td id="empty-td"></td>
+            </tr>
+          </thead>
+          <tbody id="table-body"></tbody>
+          <tfoot id="table-foot"></tfoot>
+        </table>
+      </section>
+    </main>
+    <footer>
+      <div class="display-flex space-between">
+      <img src="img/frosted-cookie.jpg" alt="Delicious Cookie" />
+      <img src="img/salmon.png" alt="Pink Salmon" />
+      <img src="img/cutter.jpeg" alt="Cookie Cutter" />
+    </div>
+    <p>&copy; Thomas Basham</p>
+  </footer>
+  </body>
+  <script src="./js/app.js"></script>
+</html>

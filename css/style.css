@@ -1,0 +1,125 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&family=Shrikhand&family=Unbounded&display=swap');
+
+html,
+body {
+  /* #fe4a49, #2ab7ca, #fed766, #e6e6ea, #f4f4f8 */
+  --color1: #fe4a49;
+  --color2: #fed766;
+  --color2b: #f9db7f;
+  --color3: #e6e6ea;
+  --color4: #f4f4f8;
+  --color5: #2ab7ca;
+  --color5b: #5ebac6;
+
+  background-color: var(--color5b);
+  margin: 0px;
+  font-family: 'Roboto', sans-serif;
+
+}
+
+header {
+  background-color: var(--color2b);
+  padding: 2px;
+}
+
+header img {
+  width: 250px
+}
+
+header p,
+h1 {
+  font-family: 'Shrikhand', cursive;
+}
+
+h1,
+address,
+p {
+  color: #f9db7f;
+}
+
+h2,
+header p {
+  color: var(--color1);
+}
+
+a {
+  color: var(--color5);
+}
+
+a {
+  text-decoration: none;
+}
+
+main {
+  width: 70%;
+  margin: 0 auto;
+}
+
+main img {
+  width: 100%;
+}
+
+table {
+  margin: 1.5rem auto;
+  padding: 1.5rem;
+  background-color: var(--color2b);
+  border-radius: 4px;
+}
+
+td,
+th {
+  padding: .5rem;
+  font-size: .6rem;
+}
+
+nav {
+  width: 100%;
+  padding-inline: 20px;
+}
+
+footer {
+  text-align: center;
+}
+
+footer img {
+  width: 100px;
+}
+
+button {
+  background-color: var(--color5b);
+  padding-inline: 1rem;
+  border: solid var(--color2) 1px;
+  border-radius: 4px;
+  color: var(--color2);
+
+}
+
+fieldset {
+  border: none;
+  border-radius: 4px;
+  color: var(--color2);
+}
+
+button:hover {
+  cursor: pointer;
+  color: var(--color5);
+  background-color: var(--color2);
+}
+
+.img-reverse {
+  transform: scaleX(-1);
+}
+
+.contact-container div {
+  text-align: right;
+  width: 50%;
+}
+
+.display-flex {
+  display: flex;
+}
+
+.space-between {
+  justify-content: space-between;
+  align-items: center;
+}
